@@ -37,6 +37,12 @@ class Usuario
     private $administrador;
 
     /**
+     * @ORM\OneToOne(targetEntity="Persona")
+     * @var Persona
+     */
+    private $persona;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -95,6 +101,24 @@ class Usuario
     public function setAdministrador(bool $administrador): Usuario
     {
         $this->administrador = $administrador;
+        return $this;
+    }
+
+    /**
+     * @return Persona
+     */
+    public function getPersona(): Persona
+    {
+        return $this->persona;
+    }
+
+    /**
+     * @param Persona $persona
+     * @return Usuario
+     */
+    public function setPersona(Persona $persona): Usuario
+    {
+        $this->persona = $persona;
         return $this;
     }
 }
