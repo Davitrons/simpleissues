@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,17 @@ class Persona
      * @var string
      */
     private $apellidos;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="gestor")
+     * @var Categoria[]|Collection
+     */
+    private $responsabilidades;
+
+    public function __construct()
+    {
+        $this->responsabilidades = new ArrayCollection();
+    }
 
     /**
      * @return int
