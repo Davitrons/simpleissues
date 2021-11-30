@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +37,17 @@ class Categoria
      * @var Persona
      */
     private $gestor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Incidencia", mappedBy="categorias")
+     * @var Incidencia[]|Collection
+     */
+    private $incidencias;
+
+    public function __construct()
+    {
+        $this->incidencias = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -77,6 +90,42 @@ class Categoria
     public function setVisible(bool $visible): Categoria
     {
         $this->visible = $visible;
+        return $this;
+    }
+
+    /**
+     * @return Persona
+     */
+    public function getGestor(): Persona
+    {
+        return $this->gestor;
+    }
+
+    /**
+     * @param Persona $gestor
+     * @return Categoria
+     */
+    public function setGestor(Persona $gestor): Categoria
+    {
+        $this->gestor = $gestor;
+        return $this;
+    }
+
+    /**
+     * @return Incidencia[]|Collection
+     */
+    public function getIncidencias()
+    {
+        return $this->incidencias;
+    }
+
+    /**
+     * @param Incidencia[]|Collection $incidencias
+     * @return Categoria
+     */
+    public function setIncidencias($incidencias)
+    {
+        $this->incidencias = $incidencias;
         return $this;
     }
 }

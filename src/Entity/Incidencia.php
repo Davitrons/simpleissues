@@ -2,37 +2,64 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="incidencia")
+ */
 class Incidencia
 {
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
      * @var int
      */
     private $id;
 
     /**
+     * @ORM\Column(type="string")
      * @var string
      */
     private $titulo;
 
     /**
+     * @ORM\Column(type="text")
      * @var string
      */
     private $descripcion;
 
     /**
+     * @ORM\Column(type="boolean")
      * @var bool
      */
     private $prioritaria;
 
     /**
      * @var \DateTime
+     * @ORM\Column(type="date")
      */
     private $fechaApertura;
 
     /**
-     * @var \DateTime
+     * @ORM\Column(type="date", nullable=true)
+     * @var \DateTime|null
      */
     private $fechaCierre;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Categoria", inversedBy="incidencias")
+     * @var Categoria[]|Collection
+     */
+    private $categorias;
+
+    public function __construct()
+    {
+        $this->categorias = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -129,6 +156,24 @@ class Incidencia
     public function setFechaCierre(\DateTime $fechaCierre = null): Incidencia
     {
         $this->fechaCierre = $fechaCierre;
+        return $this;
+    }
+
+    /**
+     * @return Categoria[]|Collection
+     */
+    public function getCategorias()
+    {
+        return $this->categorias;
+    }
+
+    /**
+     * @param Categoria[]|Collection $categorias
+     * @return Incidencia
+     */
+    public function setCategorias($categorias)
+    {
+        $this->categorias = $categorias;
         return $this;
     }
 }
