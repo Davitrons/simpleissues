@@ -37,9 +37,16 @@ class Persona
      */
     private $responsabilidades;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Incidencia", mappedBy="abiertaPor")
+     * @var Incidencia[]|Collection
+     */
+    private $incidencias;
+
     public function __construct()
     {
         $this->responsabilidades = new ArrayCollection();
+        $this->incidencias = new ArrayCollection();
     }
 
     /**
@@ -83,6 +90,42 @@ class Persona
     public function setApellidos(string $apellidos): Persona
     {
         $this->apellidos = $apellidos;
+        return $this;
+    }
+
+    /**
+     * @return Categoria[]|Collection
+     */
+    public function getResponsabilidades()
+    {
+        return $this->responsabilidades;
+    }
+
+    /**
+     * @param Categoria[]|Collection $responsabilidades
+     * @return Persona
+     */
+    public function setResponsabilidades($responsabilidades)
+    {
+        $this->responsabilidades = $responsabilidades;
+        return $this;
+    }
+
+    /**
+     * @return Incidencia[]|Collection
+     */
+    public function getIncidencias()
+    {
+        return $this->incidencias;
+    }
+
+    /**
+     * @param Incidencia[]|Collection $incidencias
+     * @return Persona
+     */
+    public function setIncidencias($incidencias)
+    {
+        $this->incidencias = $incidencias;
         return $this;
     }
 }

@@ -57,6 +57,13 @@ class Incidencia
     private $categorias;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Persona", inversedBy="incidencias")
+     * @ORM\JoinColumn(nullable=false)
+     * @var Persona
+     */
+    private $abiertaPor;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Persona")
      * @var Persona|null
      */
@@ -180,6 +187,24 @@ class Incidencia
     public function setCategorias($categorias)
     {
         $this->categorias = $categorias;
+        return $this;
+    }
+
+    /**
+     * @return Persona
+     */
+    public function getAbiertaPor(): Persona
+    {
+        return $this->abiertaPor;
+    }
+
+    /**
+     * @param Persona $abiertaPor
+     * @return Incidencia
+     */
+    public function setAbiertaPor(Persona $abiertaPor): Incidencia
+    {
+        $this->abiertaPor = $abiertaPor;
         return $this;
     }
 
