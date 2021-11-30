@@ -56,6 +56,12 @@ class Incidencia
      */
     private $categorias;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Persona")
+     * @var Persona|null
+     */
+    private $cerradaPor;
+
     public function __construct()
     {
         $this->categorias = new ArrayCollection();
@@ -174,6 +180,24 @@ class Incidencia
     public function setCategorias($categorias)
     {
         $this->categorias = $categorias;
+        return $this;
+    }
+
+    /**
+     * @return Persona|null
+     */
+    public function getCerradaPor(): ?Persona
+    {
+        return $this->cerradaPor;
+    }
+
+    /**
+     * @param Persona|null $cerradaPor
+     * @return Incidencia
+     */
+    public function setCerradaPor(?Persona $cerradaPor): Incidencia
+    {
+        $this->cerradaPor = $cerradaPor;
         return $this;
     }
 }
